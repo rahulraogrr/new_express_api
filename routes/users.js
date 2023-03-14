@@ -15,9 +15,6 @@ router.get('/', (req,res) => {
     res.send(users);
 });
 
-/**
- * Get user by id
- */
 router.get('/:id', (req,res) => {
     const {id} = req.params;
     const userByID = users.find((user) => user.id === id);
@@ -30,6 +27,28 @@ router.delete('/:id', (req,res) => {
     res.send(`User with id ${id} deleted from database!!!`);
 });
 
+router.patch('/:id', (req,res) => {
+    const {id} = req.params;
+    const {firstName,lastName,city,country} = req.body;
+    const userToBeUpdated = users.find((user) => user.id === id);
 
+    if(firstName){
+        userToBeUpdated.firstName = firstName;
+    }
+
+    if(lastName){
+        userToBeUpdated.lastName = lastName;
+    }
+
+    if(city){
+        userToBeUpdated.city = city;
+    }
+
+    if(country){
+        userToBeUpdated.country = country;
+    }
+    
+    res.send(`User with id ${id} modified from database!!!`);
+});
 
 export default router;
